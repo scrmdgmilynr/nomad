@@ -29,10 +29,10 @@ app.post('/api/getEvent', (req,res) =>{
  		
  		let times = _.reduce(data, (final, event) =>{
  			final = final || {};
- 			const key = `${event.lat},${event.long},${event.name}` 			
+ 			const key = `${event.lat},${event.long},${event.name}`; 			
  			//format times to human readable
- 			const newStart = dateFormat(new Date(event.start_date), "mmm dS, yy, h:MM TT")
- 			const newEnd = dateFormat(new Date(event.end_date), "mmm dS, yy, h:MM TT")
+ 			const newStart = dateFormat(new Date(event.start_date), "mmm dS, yy, h:MM TT Z", true);
+ 			const newEnd = dateFormat(new Date(event.end_date), "mmm dS, yy, h:MM TT Z", true);
 
  			const timeObj = {
 				start: newStart, 
