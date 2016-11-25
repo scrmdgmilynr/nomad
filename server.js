@@ -7,6 +7,7 @@ const upload = multer();
 const path = require('path');
 const _ = require('underscore');
 const dateFormat = require('dateformat');
+const time = require('time')(Date);
 const app = express();
 
 const pool = require('./db/postgresConnect.js');
@@ -31,8 +32,17 @@ app.post('/api/getEvent', (req,res) =>{
  			final = final || {};
  			const key = `${event.lat},${event.long},${event.name}`; 			
  			//format times to human readable
- 			const newStart = dateFormat(new Date(event.start_date), "mmm dS, yy, h:MM TT Z", true);
- 			const newEnd = dateFormat(new Date(event.end_date), "mmm dS, yy, h:MM TT Z", true);
+
+ 			const pstStart = new Date(event.start_date);
+ 			const pstEnd = new Date(event.end_date);
+
+ 			pstStart.setTimezone("America/Los_Angeles");
+ 			pstEnd.setTimezone("America/Los_Angeles");
+
+ 			const newStart = dateFormat(pstStart, "mmm dS, yy, h:MM TT Z");
+ 			const newEnd = dateFormat(pstEnd, "mmm dS, yy, h:MM TT Z");
+ 			// const newStart = dateFormat(new Date(event.start_date), "mmm dS, yy, h:MM TT Z", true);
+ 			// const newEnd = dateFormat(new Date(event.end_date), "mmm dS, yy, h:MM TT Z", true);
 
  			const timeObj = {
 				start: newStart, 
