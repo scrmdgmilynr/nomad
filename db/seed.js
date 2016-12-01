@@ -95,6 +95,7 @@ const createTablesQuery = (clientInstance) => {
 			name varchar,
 			host varchar,
 			description varchar,
+			address varchar,
 			lat decimal,
 			long decimal,
 			Primary key (id)
@@ -122,10 +123,11 @@ const seedTablesQuery = (clientInstance) => {
 	}; 
 	_.each(data, (obj) => {
 		clientInstance.query(`insert into public.events
-										(name, host, description, lat, long)
+										(name, host, description, address, lat, long)
 										values ('${obj.info.name.replace(/(')/g, '\"')}',
 										'${obj.info.host.replace(/(')/g, '\"')}',
 										'${obj.info.description.replace(/(')/g, '\"')}',
+										'${obj.address.replace(/(')/g, '\"')}',
 										${obj.location.lat},
 										${obj.location.long})`).then(insertTimes(clientInstance, obj))
 	});

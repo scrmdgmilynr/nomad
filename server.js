@@ -97,7 +97,7 @@ app.post('/api/getEvent', (req,res) =>{
 		  resolve(client);
 		});
 	}).then((client) => {
-		client.query(`select public.events.id, name, host, description, lat, long, start_date, end_date
+		client.query(`select public.events.id, name, host, description, address, lat, long, start_date, end_date
 									from public.events inner join public.dates on public.dates.fk_event = public.events.id
 									where acos(sin(${req.body.lat}) * sin(public.events.lat) +
 									cos(${req.body.lat}) * cos(public.events.lat) *
@@ -156,10 +156,11 @@ app.post('/api/createEvent', (req, res) =>{
 		});
 	}).then((client) =>{
 		client.query(`insert into public.events
-									(name, host, description, lat, long)
+									(name, host, description, address, lat, long)
 									values ('${req.body.info.name}',
 									'${req.body.info.host}',
 									'${req.body.info.description}',
+									'${req.body.address.replace(/("|')/g, '')}',
 									${req.body.location.lat},
 									${req.body.location.long})`,
 								(err, result) =>{

@@ -5,6 +5,7 @@ create table public.events(
 	name varchar,
 	host varchar,
 	description varchar,
+	address varchar,
 	lat decimal,
 	long decimal,
 	Primary key (id)
