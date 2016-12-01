@@ -7,6 +7,7 @@ const upload = multer();
 const path = require('path');
 const _ = require('underscore');
 const dateFormat = require('dateformat');
+const time = require('time')(Date);
 const app = express();
 
 const pool = require('./db/postgresConnect.js');
@@ -15,7 +16,7 @@ const port = process.env.PORT || 5000; // port
 
 Number.prototype.toRad = function() {
 	return this * Math.PI / 180;
-}
+};
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -31,8 +32,17 @@ app.post('/api/getEvent', (req,res) =>{
  			final = final || {};
  			const key = `${event.lat},${event.long},${event.name}`; 			
  			//format times to human readable
- 			const newStart = dateFormat(new Date(event.start_date), "mmm dS, yy, h:MM TT Z", true);
- 			const newEnd = dateFormat(new Date(event.end_date), "mmm dS, yy, h:MM TT Z", true);
+
+ 			const pstStart = new Date(event.start_date);
+ 			const pstEnd = new Date(event.end_date);
+
+ 			pstStart.setTimezone("America/Los_Angeles");
+ 			pstEnd.setTimezone("America/Los_Angeles");
+
+ 			const newStart = dateFormat(pstStart, "mmm dS, yy, h:MM TT Z");
+ 			const newEnd = dateFormat(pstEnd, "mmm dS, yy, h:MM TT Z");
+ 			// const newStart = dateFormat(new Date(event.start_date), "mmm dS, yy, h:MM TT Z", true);
+ 			// const newEnd = dateFormat(new Date(event.end_date), "mmm dS, yy, h:MM TT Z", true);
 
  			const timeObj = {
 				start: newStart, 
@@ -121,15 +131,15 @@ app.post('/api/createEvent', (req, res) =>{
 
 	let insertTimes = (client, cb) =>{
 		_.each(req.body.time, (time) =>{
-			console.log(req.body.info.name, req.body.info.location)
+			console.log(req.body.info.name, req.body.info.location);
 			client.query(`insert into public.dates
 									(start_date, end_date, fk_event)
 									values ('${time.start}',
 									'${time.end}',
 									(select id from public.events where name='${req.body.info.name}' and lat=${req.body.location.lat} and long=${req.body.location.long}))`,
 									(err, result) =>{
-										console.log(err, 'check error')
-										console.log(result, ' result from insert statement')
+										console.log(err, 'check error');
+										console.log(result, ' result from insert statement');
 									}
 			);
 		});
@@ -153,8 +163,8 @@ app.post('/api/createEvent', (req, res) =>{
 									${req.body.location.lat},
 									${req.body.location.long})`,
 								(err, result) =>{
-									console.log(err, 'check error')
-									console.log(result, ' result from insert statement')
+									console.log(err, 'check error');
+									console.log(result, ' result from insert statement');
 									insertTimes(client, () => {
 										res.send();
 									});
