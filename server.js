@@ -16,7 +16,7 @@ const port = process.env.PORT || 5000; // port
 
 Number.prototype.toRad = function() {
 	return this * Math.PI / 180;
-}
+};
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -131,15 +131,15 @@ app.post('/api/createEvent', (req, res) =>{
 
 	let insertTimes = (client, cb) =>{
 		_.each(req.body.time, (time) =>{
-			console.log(req.body.info.name, req.body.info.location)
+			console.log(req.body.info.name, req.body.info.location);
 			client.query(`insert into public.dates
 									(start_date, end_date, fk_event)
 									values ('${time.start}',
 									'${time.end}',
 									(select id from public.events where name='${req.body.info.name}' and lat=${req.body.location.lat} and long=${req.body.location.long}))`,
 									(err, result) =>{
-										console.log(err, 'check error')
-										console.log(result, ' result from insert statement')
+										console.log(err, 'check error');
+										console.log(result, ' result from insert statement');
 									}
 			);
 		});
@@ -163,8 +163,8 @@ app.post('/api/createEvent', (req, res) =>{
 									${req.body.location.lat},
 									${req.body.location.long})`,
 								(err, result) =>{
-									console.log(err, 'check error')
-									console.log(result, ' result from insert statement')
+									console.log(err, 'check error');
+									console.log(result, ' result from insert statement');
 									insertTimes(client, () => {
 										res.send();
 									});
