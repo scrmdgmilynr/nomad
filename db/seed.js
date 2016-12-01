@@ -136,7 +136,7 @@ new Promise((resolve, reject) =>{
 	  if(client){
 	  	resolve(client);
 	  } else {
-	  	reject(err)
+	  	reject(err);
 	  }	  
 	});
 }).then((client) => {

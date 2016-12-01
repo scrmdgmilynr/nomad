@@ -35,6 +35,7 @@ angular.module('nomadConfirm', ['nomadForm', 'explorer'])
                 host: params.host,
                 description: params.description,
               },
+              address: params.address,
               location: {
                 lat: params.lat,
                 long: params.long
