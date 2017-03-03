@@ -58,7 +58,7 @@ h6{
 /*------------------- Landing Page ------------------------*/
 /*---------------------------------------------------------*/
 .landing-bg {
-  background: url(http://nomad.k6otaxbxe5nnh.maxcdn-edge.com/assets/landing-bg.jpg) no-repeat;
+  background: url(./assets/landing-bg-compressed.jpg) no-repeat;
   background-size: cover;
   height: 78%;
   background-position: center;
@@ -84,7 +84,7 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
 }
 
 .landing-sub-img-1 {
-  background: url(http://nomad.k6otaxbxe5nnh.maxcdn-edge.com/assets/pic1.jpg) no-repeat;
+  background: url(./assets/pic1-compressed.jpg) no-repeat;
   background-size: cover;
   overflow: hidden;
   height: 175px;
@@ -93,7 +93,7 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
 }
 
 .landing-sub-img-2 {
-  background: url(http://nomad.k6otaxbxe5nnh.maxcdn-edge.com/assets/pic2.jpg) no-repeat;
+  background: url(./assets/pic2-compressed.jpg) no-repeat;
   background-size: cover;
   overflow: hidden;
   height: 175px;
