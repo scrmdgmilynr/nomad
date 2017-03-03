@@ -58,7 +58,7 @@ h6{
 /*------------------- Landing Page ------------------------*/
 /*---------------------------------------------------------*/
 .landing-bg {
-  background: url(http://nomad.k6otaxbxe5nnh.maxcdn-edge.com/assets/landing-bg.jpg) no-repeat;
+  background: url('landing-bg-compressed.jpg') no-repeat;
   background-size: cover;
   height: 78%;
   background-position: center;
